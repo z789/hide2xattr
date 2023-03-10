@@ -77,8 +77,10 @@ int main(int argc, char **argv)
 		d_count--;
 
 		len = count > XATTR_SIZE ? XATTR_SIZE : count;
-		if (setxattr(dstfile, "user.i", ptr+i, len, 0) != 0)  
+		if (setxattr(dstfile, "user.i", ptr+i, len, 0) != 0) { 
+			free(dstfile);
 			continue;
+		}
 		fprintf(stdout, "setxattr %s xattr %d bytes\n", dstfile, len);
 		free(dstfile);
 		count -= len;
